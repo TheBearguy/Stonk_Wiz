@@ -14,7 +14,7 @@ st.title('Stonks')
 
 symbol = st.text_input('Enter your stonk: eg: APPL for Apple Stonk')
 
-if st.button('Prediction Maaro'):
+if st.button('Predict'):
     url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}.BSE&outputsize=full&apikey={API_KEY}"
     response = requests.get(url)
     json_data = response.json()
