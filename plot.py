@@ -1,26 +1,44 @@
+
 import streamlit as st
-import yfinance as yf
+import plotly.graph_objects as go
+import requests
 import pandas as pd
 
-all_stocks = yf.Ticker("SPY").constituents
-
-st.set_page_config(layout="wide")
-st.title("Stock Dashboard")
+crypto_api_url = "https://api.example.com/cryptostocks"
 
 
-stock_symbol = st.sidebar.selectbox("Select a stock:", all_stocks)
+st.title("Crypto Stock Visualization App")
 
 
-stock_data = yf.download(stock_symbol, period="1d")
-
-st.header(stock_symbol)
-st.write(stock_data.head()
-         
-
-st.plotly_chart(stock_data.plot(kind="candlestick"))
+response = requests.get(crypto_api_url)
+crypto_data = response.json()
 
 
-st.line_chart(stock_data["Close"])
+df = pd.DataFrame(crypto_data)
 
 
-st.write("Current price:", stock_data["Close"].iloc[-1])
+st.sidebar.header("Select Cryptocurrency")
+
+selected_crypto = st.sidebar.selectbox("Select a cryptocurrency",)
+selected_data = df[df["Symbol"] == selected_crypto]
+
+# Display candlestick chart
+st.subheader("Candlestick Chart")
+fig = go.Figure(data=[go.Candlestick(
+    x=selected_data['Date'],
+    open=selected_data['Open'],
+    high=selected_data['High'],
+    low=selected_data['Low'],
+    close=selected_data['Close']
+)])
+st.plotly_chart(fig)
+
+# Display line chart
+st.subheader("Line Chart")
+fig_line = go.Figure()
+fig_line.add_trace(go.Scatter(x=selected_data['Date'], y=selected_data['Close'], mode='lines', name='Close Price'))
+st.plotly_chart(fig_line)
+
+# Display the selected data
+st.subheader(f"Selected {selected_crypto} Data")
+st.write(selected_data)
