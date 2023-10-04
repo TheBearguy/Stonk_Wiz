@@ -37,3 +37,27 @@ app.get('/', (req, res) => {
   res.send('Welcome to your website!');
 });
 
+app.get('/data', async (req, res) => {
+  try {
+    const data = await Data.find();
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+3. Replace `'mongodb://localhost/yourdatabase'` with your actual MongoDB connection URI and database name.
+
+4. Run the Node.js application:
+
+```bash
+node app.js
+```
+
