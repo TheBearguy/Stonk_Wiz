@@ -1,14 +1,4 @@
-To connect MongoDB to a website, you'll typically need a server-side script (e.g., using Node.js) that interacts with the MongoDB database and handles HTTP requests from your website. Below is a simplified example using Node.js and the Express.js framework to create a basic website that connects to MongoDB. Make sure you have Node.js and MongoDB installed.
 
-1. Install required packages:
-
-```bash
-npm install express mongoose
-```
-
-2. Create an `app.js` file with the following code:
-
-```javascript
 const express = require('express');
 const mongoose = require('mongoose');
 
