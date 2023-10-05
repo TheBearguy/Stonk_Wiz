@@ -43,13 +43,7 @@ app.listen(port, () => {
 });
 ```
 
-3. Replace `'mongodb://localhost/yourdatabase'` with your actual MongoDB connection URI and database name.
 
-4. Run the Node.js application:
-
-```bash
-node app.js
-```
 
 This code creates a simple Express.js web server that connects to MongoDB and provides two routes: `/` for the homepage and `/data` to retrieve data from MongoDB. You can expand upon this code to build your website and implement CRUD operations on your MongoDB database as needed.
 
